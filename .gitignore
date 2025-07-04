@@ -1,0 +1,13 @@
+# Ignore Python virtual environment
+venv/
+
+# Ignore Node modules
+client/node_modules/
+
+# Ignore build artifacts
+dist/
+build/
+
+# Pycache
+__pycache__/
+*.pyc
