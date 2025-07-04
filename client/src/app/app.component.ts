@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { SpinnerService } from './services/spinner.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SpinnerWheelComponent } from './spinner-wheel/spinner-wheel.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SpinnerWheelComponent],
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
@@ -14,6 +15,7 @@ export class AppComponent {
   newOption: string = '';
   result: string | null = null;
   isSpinning = false;
+  rotation = 0; 
 
   constructor(private spinnerService: SpinnerService) {}
 

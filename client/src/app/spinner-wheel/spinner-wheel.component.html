@@ -1,0 +1,27 @@
+<div class="wheel-wrapper">
+  <svg
+    class="wheel"
+    viewBox="-100 -100 200 200"
+    [style.transform]="'rotate(' + rotation + 'deg)'"
+  >
+    <g *ngFor="let option of options; let i = index">
+      <path
+        [attr.d]="getPath(i)"
+        [attr.fill]="getColor(i)"
+        stroke="#222"
+        stroke-width="1"
+      ></path>
+      <text
+        [attr.transform]="getTextTransform(i)"
+        text-anchor="middle"
+        alignment-baseline="middle"
+        fill="#fff"
+        font-size="20"
+        font-weight="bold"
+      >
+        {{ option }}
+      </text>
+    </g>
+  </svg>
+  <div class="indicator">▲</div>
+</div>
