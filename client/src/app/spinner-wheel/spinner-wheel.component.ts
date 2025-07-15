@@ -27,12 +27,18 @@ export class SpinnerWheelComponent {
 
   getTextTransform(index: number): string {
     const angle = this.anglePerSegment * index + this.anglePerSegment / 2;
-    const radius = 40; // Pull it inward a bit so it stays inside the slice
+    const radius = 40;
     return `rotate(${angle}) translate(${radius}, 0) rotate(90)`;
   }
 
   getColor(i: number): string {
-    const colors = ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6', '#e67e22'];
+    const colors = [
+      '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+      '#9966FF', '#FF9F40', '#C9CBCF', '#8BC34A',
+      '#E91E63', '#00BCD4', '#CDDC39', '#795548',
+      '#9C27B0', '#607D8B', '#FF5722'
+    ];
+
     return colors[i % colors.length];
   }
 
@@ -40,7 +46,7 @@ export class SpinnerWheelComponent {
     if (this.options.length <= 6) return 14;
     if (this.options.length <= 8) return 12;
     if (this.options.length <= 10) return 10;
-    return 8; // minimum readable size
+    return 8;
   }
 
 }
