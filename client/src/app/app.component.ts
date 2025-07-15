@@ -32,22 +32,30 @@ export class AppComponent {
   }
 
   spin(): void {
-    if (this.options.length < 2) return;
+  if (this.options.length < 2 || this.isSpinning) return;
 
-    this.isSpinning = true;
-    this.result = null;
+  this.isSpinning = true;
+  this.result = null;
 
-    this.spinnerService.spin(this.options).subscribe({
-      next: (res) => {
-        setTimeout(() => {
-          this.result = res.result;
-          this.isSpinning = false;
-        }, 1500); // simulate spin time
-      },
-      error: (err) => {
-        console.error('Spin failed', err);
-        this.isSpinning = false;
-      }
-    });
-  }
+  // Handle rotation
+  const extraSpins = 5; // full spins
+  const degrees = Math.floor(Math.random() * 360);
+  const totalRotation = 360 * extraSpins + degrees;
+  this.rotation += totalRotation;
+
+  // Calculate result based on final angle
+  const finalAngle = (360 - (this.rotation % 360)) % 360;
+  const segmentAngle = 360 / this.options.length;
+  const index = Math.floor(finalAngle / segmentAngle);
+  const selectedOption = this.options[index];
+
+  // Simulate delay for spin animation (should match CSS transition time)
+  setTimeout(() => {
+    this.result = selectedOption;
+    this.isSpinning = false;
+  }, 4000); // match CSS transition: 4s
+}
+
+
+  
 }
