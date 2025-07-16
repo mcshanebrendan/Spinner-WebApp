@@ -36,3 +36,10 @@ li {
   transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
   transform-origin: center;
 }
+.spin-button {
+  transition: transform 0.2s ease;
+}
+.spin-button:active {
+  transform: scale(0.95);
+}
+

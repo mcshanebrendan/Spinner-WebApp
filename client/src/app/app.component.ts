@@ -3,6 +3,7 @@ import { SpinnerService } from './services/spinner.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SpinnerWheelComponent } from './spinner-wheel/spinner-wheel.component';
+import confetti from 'canvas-confetti';
 
 @Component({
   selector: 'app-root',
@@ -53,6 +54,11 @@ export class AppComponent {
   setTimeout(() => {
     this.result = selectedOption;
     this.isSpinning = false;
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
   }, 4000); // match CSS transition: 4s
 }
 
