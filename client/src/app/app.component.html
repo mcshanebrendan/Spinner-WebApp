@@ -1,31 +1,41 @@
-<div class="container">
-  <h1>🎯 Decision Spinner</h1>
+<div class="main-wrapper">
+  <!-- Left Column: Controls + History -->
+  <div class="left-column">
+    <h1>🎯 Decision Spinner</h1>
 
-  <div class="input-group">
-    <input [(ngModel)]="newOption" placeholder="Enter option" />
-    <button (click)="addOption()">Add</button>
+    <div class="input-group">
+      <input [(ngModel)]="newOption" placeholder="Enter option" />
+      <button (click)="addOption()">Add</button>
+    </div>
+
+    <ul>
+      <li *ngFor="let opt of options; index as i">
+        {{ opt }}
+        <button (click)="removeOption(i)">x</button>
+      </li>
+    </ul>
+
+    <button [disabled]="options.length < 2 || isSpinning" (click)="spin()">
+      {{ isSpinning ? 'Spinning...' : 'Spin!' }}
+    </button>
+
+    <div *ngIf="result" class="result">
+      🎉 Result: <strong>{{ result }}</strong>
+    </div>
+
+    <div *ngIf="history.length > 0" class="history-panel">
+      <h3>🕑 Spin History</h3>
+      <ul>
+        <li *ngFor="let item of history">{{ item }}</li>
+      </ul>
+    </div>
   </div>
 
-  <ul>
-    <li *ngFor="let opt of options; index as i">
-      {{ opt }}
-      <button (click)="removeOption(i)">x</button>
-    </li>
-  </ul>
-
-  <button [disabled]="options.length < 2 || isSpinning" (click)="spin()">
-    {{ isSpinning ? 'Spinning...' : 'Spin!' }}
-  </button>
-
-  <div *ngIf="result" class="result">
-    🎉 Result: <strong>{{ result }}</strong>
+  <!-- Right Column: Spinner -->
+  <div class="right-column">
+    <app-spinner-wheel
+      [options]="options"
+      [rotation]="rotation"
+    ></app-spinner-wheel>
   </div>
 </div>
-
-<app-spinner-wheel
-  [options]="options"
-  [rotation]="rotation"
-></app-spinner-wheel>
-
-
-

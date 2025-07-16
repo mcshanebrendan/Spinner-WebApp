@@ -17,6 +17,7 @@ export class AppComponent {
   result: string | null = null;
   isSpinning = false;
   rotation = 0; 
+  history: string[] = [];
 
   constructor(private spinnerService: SpinnerService) {}
 
@@ -50,18 +51,36 @@ export class AppComponent {
   const index = Math.floor(finalAngle / segmentAngle);
   const selectedOption = this.options[index];
 
+  
+
   // Simulate delay for spin animation (should match CSS transition time)
   setTimeout(() => {
     this.result = selectedOption;
     this.isSpinning = false;
+    this.addToHistory(selectedOption); 
     confetti({
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 }
     });
   }, 4000); // match CSS transition: 4s
+
+  
 }
 
+ngOnInit() {
+  const saved = localStorage.getItem('spinHistory');
+  if (saved) {
+    this.history = JSON.parse(saved);
+  }
+}
 
+addToHistory(result: string): void {
+    this.history.unshift(result); // most recent first
+    if (this.history.length > 50) {
+      this.history.pop(); // keep max 50 results
+      localStorage.setItem('spinHistory', JSON.stringify(this.history));
+    }
+  }
   
 }
