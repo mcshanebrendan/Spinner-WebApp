@@ -82,5 +82,12 @@ addToHistory(result: string): void {
       localStorage.setItem('spinHistory', JSON.stringify(this.history));
     }
   }
+
+  getLabel(index: number): string {
+    if (index === 0) return 'Last spin';
+    if (index === 1) return 'Second last spin';
+    return `${index + 1} spins ago`;
+  }
+
   
 }

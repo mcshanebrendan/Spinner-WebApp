@@ -49,4 +49,11 @@ export class SpinnerWheelComponent {
     return 8;
   }
 
+  getLabel(index: number): string {
+    if (index === 0) return 'Last spin';
+    if (index === 1) return 'Second last spin';
+    return `${index + 1} spins ago`;
+  }
+
+
 }
