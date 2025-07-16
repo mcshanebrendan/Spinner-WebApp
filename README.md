@@ -13,3 +13,5 @@ A simple and fun web app to help you make decisions by spinning a virtual wheel!
 - Angular
 - TypeScript
 - HTML & CSS
+- Python
+- Flask
