@@ -11,6 +11,7 @@
     <ul>
       <li *ngFor="let opt of options; index as i">
         {{ opt }}
+        <input type="color" [(ngModel)]="selectedColors[i]" />
         <button (click)="removeOption(i)">x</button>
       </li>
     </ul>
@@ -42,6 +43,7 @@
 
   <!-- Right Column: Spinner -->
   <div class="right-column">
-    <app-spinner-wheel [options]="options" [rotation]="rotation"></app-spinner-wheel>
+    <app-spinner-wheel [options]="options" [rotation]="rotation" [colors]="selectedColors"></app-spinner-wheel>
+
   </div>
 </div>

@@ -18,20 +18,30 @@ export class AppComponent {
   isSpinning = false;
   rotation = 0; 
   history: string[] = [];
+  selectedColors: string[] = [];
+
 
   constructor(private spinnerService: SpinnerService) {}
 
   addOption(): void {
-    const trimmed = this.newOption.trim();
-    if (trimmed) {
-      this.options.push(trimmed);
-      this.newOption = '';
-    }
+  const trimmed = this.newOption.trim();
+  if (trimmed) {
+    this.options.push(trimmed);
+    // Add a color for the new option (cycle through some colors or use a random one)
+    const defaultColors = ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6', '#e67e22', '#1abc9c'];
+    const color = defaultColors[this.options.length % defaultColors.length];
+    this.selectedColors.push(color);
+
+    this.newOption = '';
   }
+}
+
 
   removeOption(index: number): void {
-    this.options.splice(index, 1);
-  }
+  this.options.splice(index, 1);
+  this.selectedColors.splice(index, 1); // Keep colors in sync
+}
+
 
   spin(): void {
   if (this.options.length < 2 || this.isSpinning) return;

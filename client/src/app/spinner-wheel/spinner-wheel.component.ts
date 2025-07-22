@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 export class SpinnerWheelComponent {
   @Input() options: string[] = [];
   @Input() rotation: number = 0;
+  @Input() colors: string[] = [];
 
   get anglePerSegment(): number {
     return 360 / this.options.length;
@@ -32,15 +33,14 @@ export class SpinnerWheelComponent {
   }
 
   getColor(i: number): string {
-    const colors = [
-      '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
-      '#9966FF', '#FF9F40', '#C9CBCF', '#8BC34A',
-      '#E91E63', '#00BCD4', '#CDDC39', '#795548',
-      '#9C27B0', '#607D8B', '#FF5722'
-    ];
-
-    return colors[i % colors.length];
-  }
+  const baseColors = this.colors && this.colors.length ? this.colors : [
+    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+    '#9966FF', '#FF9F40', '#C9CBCF', '#8BC34A',
+    '#E91E63', '#00BCD4', '#CDDC39', '#795548',
+    '#9C27B0', '#607D8B', '#FF5722'
+  ];
+  return baseColors[i % baseColors.length];
+}
 
   getFontSize(): number {
     if (this.options.length <= 6) return 14;
