@@ -25,20 +25,23 @@
 
     <div *ngIf="history.length > 0" class="history-panel">
       <h3>🕑 Spin History</h3>
-        <ul>
-          <li *ngFor="let item of history; index as i">
-            <em style="color: rgb(255, 250, 250);">{{ getLabel(i) }}:</em> {{ item }}
-          </li>
-        </ul>
+      <ul>
+        <li *ngFor="let item of history; index as i">
+          <em style="color: rgb(255, 250, 250);">{{ getLabel(i) }}:</em> {{ item }}
+        </li>
+      </ul>
     </div>
+
+    <div class="export-buttons" *ngIf="history.length > 0">
+      <button (click)="exportHistoryAsCSV()">⬇ Export as CSV</button>
+      <button (click)="exportHistoryAsJSON()">⬇ Export as JSON</button>
+    </div>
+
 
   </div>
 
   <!-- Right Column: Spinner -->
   <div class="right-column">
-    <app-spinner-wheel
-      [options]="options"
-      [rotation]="rotation"
-    ></app-spinner-wheel>
+    <app-spinner-wheel [options]="options" [rotation]="rotation"></app-spinner-wheel>
   </div>
 </div>

@@ -89,5 +89,26 @@ addToHistory(result: string): void {
     return `${index + 1} spins ago`;
   }
 
+  exportHistoryAsCSV(): void {
+  const csv = this.history.map((item, index) => `${index + 1},${item}`).join('\n');
+  const blob = new Blob([`#,Spin Result\n${csv}`], { type: 'text/csv' });
+  this.downloadFile(blob, 'spin-history.csv');
+}
+
+exportHistoryAsJSON(): void {
+  const blob = new Blob([JSON.stringify(this.history, null, 2)], { type: 'application/json' });
+  this.downloadFile(blob, 'spin-history.json');
+}
+
+private downloadFile(blob: Blob, filename: string): void {
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
+
+
   
 }
