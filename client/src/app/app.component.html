@@ -43,7 +43,9 @@
 
   <!-- Right Column: Spinner -->
   <div class="right-column">
-    <app-spinner-wheel [options]="options" [rotation]="rotation" [colors]="selectedColors"></app-spinner-wheel>
-
+    <div class="wheel-wrapper" [class.spinning]="isSpinning">
+      <app-spinner-wheel [options]="options" [rotation]="rotation" [colors]="selectedColors"></app-spinner-wheel>
+    </div>
   </div>
+
 </div>

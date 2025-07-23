@@ -49,34 +49,45 @@ export class AppComponent {
   this.isSpinning = true;
   this.result = null;
 
-  // Handle rotation
-  const extraSpins = 5; // full spins
-  const degrees = Math.floor(Math.random() * 360);
-  const totalRotation = 360 * extraSpins + degrees;
-  this.rotation += totalRotation;
-
-  // Calculate result based on final angle
-  const finalAngle = (360 - (this.rotation % 360)) % 360;
   const segmentAngle = 360 / this.options.length;
-  const index = Math.floor(finalAngle / segmentAngle);
-  const selectedOption = this.options[index];
+  const randomIndex = Math.floor(Math.random() * this.options.length);
+  const targetAngle = 360 * 5 + randomIndex * segmentAngle + segmentAngle / 2; // center of segment
+  const startRotation = this.rotation;
+  const endRotation = startRotation + targetAngle;
+  const duration = 4000; // match CSS time
 
-  
+  const startTime = performance.now();
 
-  // Simulate delay for spin animation (should match CSS transition time)
-  setTimeout(() => {
-    this.result = selectedOption;
-    this.isSpinning = false;
-    this.addToHistory(selectedOption); 
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-  }, 4000); // match CSS transition: 4s
+  const animate = (currentTime: number) => {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
 
-  
+    // Ease-out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    this.rotation = startRotation + (endRotation - startRotation) * eased;
+
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      const finalAngle = (360 - (this.rotation % 360)) % 360;
+      const finalIndex = Math.floor(finalAngle / segmentAngle);
+      const selectedOption = this.options[finalIndex];
+
+      this.result = selectedOption;
+      this.isSpinning = false;
+      this.addToHistory(selectedOption);
+
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+  };
+
+  requestAnimationFrame(animate);
 }
+
 
 ngOnInit() {
   const saved = localStorage.getItem('spinHistory');
